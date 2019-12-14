@@ -15,12 +15,6 @@ namespace WebApi
         public string Encrypt { get; set; }
         
     }
-    public class Users
-    {
-
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Age { get; set; }
-    }
+    
 
 }
