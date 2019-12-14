@@ -73,9 +73,7 @@ namespace WebApi.Controllers
                 Console.WriteLine(buffer.GetValue(0));
                 
                 Employee.JSONDeserilaize(ms);
-
-               
-               return new ObjectResult(ms);
+                return new ObjectResult(ms);
         }
 
 
