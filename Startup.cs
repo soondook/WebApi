@@ -1,5 +1,7 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
+#pragma warning disable CS0234 // Тип или имя пространства имен "JwtBearer" не существует в пространстве имен "Microsoft.AspNetCore.Authentication" (возможно, отсутствует ссылка на сборку).
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+#pragma warning restore CS0234 // Тип или имя пространства имен "JwtBearer" не существует в пространстве имен "Microsoft.AspNetCore.Authentication" (возможно, отсутствует ссылка на сборку).
 using System;
 using System.Collections.Generic;
 using System.Linq;

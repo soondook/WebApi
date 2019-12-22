@@ -13,8 +13,13 @@ using System.IO;
 namespace WebApi.Controllers
 {
     [ApiController]
+    public class MyControllerBase : ControllerBase
+    {
+    }
+
+
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastController : MyControllerBase
     {
         /*
            [HttpPost]
@@ -35,6 +40,7 @@ namespace WebApi.Controllers
         public async Task<ActionResult<WeatherForecast>> Post(WeatherForecast Modify)
         {
             object encrypt = null;
+            string ms = "";
             Console.WriteLine(Modify.Encrypt);
             //User user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
             //Modify.
@@ -43,92 +49,28 @@ namespace WebApi.Controllers
             if (Modify.Encrypt != null)
                 //Encrypt.ToString();
                 encrypt = await Encript_data.Encript_(Modify.Encrypt);
+            string path = "C:\\Temp\\employee.json.txt";
+            using (TextWriter tw1 = new StreamWriter(path, true))
+            {
+                tw1.WriteLine(encrypt.ToString());
+                tw1.Close();
+
+            }
 
             return new ObjectResult(encrypt);
         }
+        
 
     }
 
-    [ApiController]
-    [Route("[controller]")]
-    public class UsersController : ControllerBase
-        {
-            [HttpPost("{User}")]
-        public async Task<ActionResult<Users>> Post(Users Modifys)
-        {
-            object encrypt = "";
-            string ms = "";
-            Console.WriteLine(Modifys.FirstNames);
-            //User user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
-            //Modify.
-            if (Modifys.FirstNames == null)
-                return NotFound();
-            if (Modifys.FirstNames != null)
-                encrypt = await Encript_data.Encript_(Modifys.FirstNames);
-                
-            ms = Employee.Json_pars(FirstNames: encrypt.ToString(), LastName: Modifys.LastName, EmployeeID: Modifys.EmployeeID, Designation: Modifys.Designation);
-                byte[] byteArray = Encoding.UTF8.GetBytes(ms);
-                MemoryStream stream = new MemoryStream(byteArray);
-                byte[] buffer = stream.ToArray();
-                Console.WriteLine(buffer.GetValue(0));
-                
-                Employee.JSONDeserilaize(ms);
-                return new ObjectResult(ms);
-        }
+    
+    
+    
 
-
-    }
 }
 
 
-public class Encript_data
-{
-internal static async Task<string> Encript_(string encrypt)
-   {
-// Text to encrypt and decrypt.
-//var text = "12345678";
-byte[] encryptedBytes;
-byte[] decryptedBytes;
-string encryptedString;
-// Use OAEP padding (PKCS#1 v2).
-bool doOaepPadding = true;
-// RSA 512-bit key: Public (Modulus), Private (D) and CRT (P, Q, DP, DQ, InverseQ).
-string xmlParams = "<RSAKeyValue><Modulus>qpckDXTWK8imuKMozgNexHnABZLqZ+iI55uNkZ5y1R5eDceIrOEfWUd5V+KIkq+5QepL9upDdnFp4PWUqj++dVR7DcuFMqFQ9DSERsRUr/VxyZ7pDn0xjAPhAmeoe0ffoVnrJAqbhYE5jccsg5+78vrpGPicYH1E7Y+gxq01PuM=</Modulus><Exponent>AQAB</Exponent><P>2aLcuWDVM++oWb75p9eSO6zqmv6K190rAJ4r1SNpcv4FpajhO6+0H1TSeD0Rx3XkNcmPIEVLTom6jhasmSmFdw==</P><Q>yKlFg8RoxzJ7khGKCj6qcObCYlNxaCjiPF5c3TBn5VXaByElJmPCEiODZgbI8FntQE92mZEiHjp/bjb6Zvyc9Q==</Q><DP>A67K12Q5F2Dl02b06I8wTUw2yBqolNCMSr1idn/b5/M+ezgpX44wmRshWKGH7H0lOHfJsT0a8iBIhOEDWLAoLw==</DP><DQ>JgDJBZehMHjDJnrj5eTQaumJTw32oH99uWk1tT6BrtF/pXIFkyu5ia3oKN6IF90wLcne8F6oU4lIsRsAeZjGMQ==</DQ><InverseQ>nA+wqIY5OPnclY2YqW5K4wTpVjZq4s43eKrCwoSKx03aL/oMxMUxpUkQgB/MhEmD78wvZmPCL6dLU1rMWRsxlw==</InverseQ><D>pQZ3Wwkm0s5V8pHsPHdoKvt4tius1X5PSnbhmfhFMEQjSoM3hb52XCDXkxxTcEvMFKb6e8+eGauXeIc6HQRzUmsSFs/xpbNJ4DYkqFYy0cWxENOFWKCSPh9cER1I3OgeM+su+Qj7LozB5ztKL3PEq5xWyfdU+VGCn7WqmR8KWkk=</D></RSAKeyValue>";
-//StreamReader readerxml = new StreamReader("C:\\temp\\rsakey");
-//var responsexmldata = readerxml.ReadToEnd();
-//string xmlParams = responsexmldata.ToString();
-//readerxml.Dispose();
-// ------------------------------------------------
-// RSA Keys
-// ------------------------------------------------
-var rsa = new RSACryptoServiceProvider();
-// Import parameters from XML string.
-rsa.FromXmlString(xmlParams);
-// Export RSA key to RSAParameters and include:
-//    false - Only public key required for encryption.
-//    true  - Private key required for decryption.
-// Export parameters and include only Public Key (Modulus + Exponent) required for encryption.
-var rsaParamsPublic = rsa.ExportParameters(false);
-// Export Public Key (Modulus + Exponent) and include Private Key (D) required for decryption.
-var rsaParamsPrivate = rsa.ExportParameters(true);
-//rsa.Dispose();
-// ------------------------------------------------
-// Encrypt
-// ------------------------------------------------
-decryptedBytes = Encoding.UTF8.GetBytes(encrypt);
-// Create a new instance of RSACryptoServiceProvider.
-//rsa = new RSACryptoServiceProvider();
-// Import the RSA Key information.
-rsa.ImportParameters(rsaParamsPublic);
-// Encrypt byte array.
-encryptedBytes =  rsa.Encrypt(decryptedBytes, doOaepPadding);
-// Convert bytes to base64 string.
-encryptedString = Convert.ToBase64String(encryptedBytes);
-rsa.Dispose();
-Console.WriteLine(encryptedString);
-return encryptedString;
 
-   }
-}
+
 
 
