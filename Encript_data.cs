@@ -7,13 +7,12 @@ namespace WebApi
 {
     public class Encript_data
     {
-        internal static async Task<string> Encript_(string encrypt)
+        public static async Task<string> Encript_(string encrypt)
         {
             // Text to encrypt and decrypt.
             //var text = "12345678";
-            byte[] encryptedBytes;
             byte[] decryptedBytes;
-            string encryptedString;
+
             // Use OAEP padding (PKCS#1 v2).
             bool doOaepPadding = true;
             // RSA 512-bit key: Public (Modulus), Private (D) and CRT (P, Q, DP, DQ, InverseQ).
@@ -39,19 +38,33 @@ namespace WebApi
             // ------------------------------------------------
             // Encrypt
             // ------------------------------------------------
-            decryptedBytes = Encoding.UTF8.GetBytes(encrypt);
+            decryptedBytes = Encoding.UTF8.GetBytes(encrypt.ToString());
             // Create a new instance of RSACryptoServiceProvider.
             //rsa = new RSACryptoServiceProvider();
             // Import the RSA Key information.
             rsa.ImportParameters(rsaParamsPublic);
             // Encrypt byte array.
+
+            return await Task.Run(() =>
+             {
+                 return SomeLongRunningMethodThatReturnsAString(decryptedBytes, doOaepPadding, rsa);
+             });
+
+
+
+        }
+
+        public static string SomeLongRunningMethodThatReturnsAString(byte[] decryptedBytes, bool doOaepPadding, RSACryptoServiceProvider rsa)
+        {
+            byte[] encryptedBytes;
+            string encryptedString;
             encryptedBytes = rsa.Encrypt(decryptedBytes, doOaepPadding);
             // Convert bytes to base64 string.
             encryptedString = Convert.ToBase64String(encryptedBytes);
-            rsa.Dispose();
             Console.WriteLine(encryptedString);
-            return encryptedString;
 
+            rsa.Dispose();
+            return encryptedString.ToString();
         }
     }
 }

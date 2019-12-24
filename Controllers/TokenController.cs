@@ -1,14 +1,10 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-#pragma warning disable CS0234 // Тип или имя пространства имен "IdentityModel" не существует в пространстве имен "System" (возможно, отсутствует ссылка на сборку).
 using System.IdentityModel.Tokens.Jwt;
-#pragma warning restore CS0234 // Тип или имя пространства имен "IdentityModel" не существует в пространстве имен "System" (возможно, отсутствует ссылка на сборку).
 using System.Security.Claims;
 using System.Security.Principal;
-#pragma warning disable CS0234 // Тип или имя пространства имен "IdentityModel" не существует в пространстве имен "Microsoft" (возможно, отсутствует ссылка на сборку).
 using Microsoft.IdentityModel.Tokens;
-#pragma warning restore CS0234 // Тип или имя пространства имен "IdentityModel" не существует в пространстве имен "Microsoft" (возможно, отсутствует ссылка на сборку).
 
 // This is a Token Example controller to generate the token to your API
 // To access use for ex Postman and call: http://localhost:{port}/api/token/auth
