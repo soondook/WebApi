@@ -14,7 +14,7 @@ namespace WebApi.Controllers
         public async Task<ActionResult<Users>> Post(Users Modifys)
         {
             object encrypt = "";
-            string ms = "";
+            string ms;
             Console.WriteLine(Modifys.FirstNames);
             //User user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
             //Modify.

@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
     [ApiController]
+    
     public class MyControllerBase : ControllerBase
     {
     }
@@ -40,8 +33,6 @@ namespace WebApi.Controllers
         public async Task<ActionResult<WeatherForecast>> Post(WeatherForecast Modify)
         {
             object encrypt = null;
-            string ms = "";
-            Console.WriteLine(Modify.Encrypt);
             //User user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
             //Modify.
             if (Modify.Encrypt == null)
@@ -59,15 +50,14 @@ namespace WebApi.Controllers
 
             return new ObjectResult(encrypt);
         }
-        
-
     }
-
     
-    
-    
-
 }
+
+
+
+
+
 
 
 
