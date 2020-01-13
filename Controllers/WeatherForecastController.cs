@@ -64,7 +64,7 @@ namespace WebApi.Controllers
         //public class UsersController : MyControllerBase
         //{
             [HttpPost("{User}")]
-            public async Task<ActionResult<Users_new>> Post(Users_new Modifys)
+            public async Task<ActionResult<Users>> Post(Users Modifys)
             {
                 object encrypt = "";
                 string ms = "";

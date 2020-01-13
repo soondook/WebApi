@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApi
 {
-    public class Users_new
+    public class Users
     {
 
         public string FirstNames { get; set; }
