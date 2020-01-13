@@ -4,17 +4,23 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebApi.Controllers
+namespace WebApi
 {
 
-    [Route("[controller]")]
-    public class UsersController : MyControllerBase
+    [ApiController]
+    public class MyControllerBase1 : ControllerBase
     {
-        [HttpPost("{User}")]
-        public async Task<ActionResult<Users>> Post(Users Modifys)
+    }
+
+    [Route("[controller]")]
+    public class UserController : MyControllerBase1
+
+    {
+        [HttpPost("{Users}")]
+        public async Task<ActionResult<User>> Post(User Modifys)
         {
             object encrypt = "";
-            string ms = "";
+            string ms;
             Console.WriteLine(Modifys.FirstNames);
             //User user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
             //Modify.
@@ -33,6 +39,5 @@ namespace WebApi.Controllers
             return new ObjectResult(ms);
         }
 
-
-    }
+     }
 }
