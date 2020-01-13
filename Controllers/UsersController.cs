@@ -33,7 +33,8 @@ namespace WebApi
             byte[] byteArray = Encoding.UTF8.GetBytes(ms);
             MemoryStream stream = new MemoryStream(byteArray);
             byte[] buffer = stream.ToArray();
-            Console.WriteLine(buffer.GetValue(0));
+            //Console.WriteLine(buffer.GetValue(0));
+            //Console.WriteLine(buffer.GetValue(1));
 
             Employee.JSONDeserilaize(ms);
             return new ObjectResult(ms);

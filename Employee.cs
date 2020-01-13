@@ -27,7 +27,8 @@ namespace WebApi
             Employee emp = new Employee(FirstNames, LastName, EmployeeID, Designation);
             object JSONresult = JsonConvert.SerializeObject(emp);
             JSONDeserilaize(JSONresult);
-            string path = "C:\\Temp\\employee.json.txt";
+            /*
+            //string path = "C:\\Temp\\employee.json.txt";
             using (TextWriter tw1 = new StreamWriter(path, true))
             {
                 string JSresult = JSONresult.ToString();
@@ -37,13 +38,16 @@ namespace WebApi
             }
             Console.WriteLine(JSONresult);
             return JSONresult.ToString();
+            */
+            string JSresult = JSONresult.ToString();
+            return JSONresult.ToString();
         }
-
+        
         public static object JSONDeserilaize(object json)
         {
             Employee empObj = JsonConvert.DeserializeObject<Employee>(json.ToString());
             //Console.WriteLine(empObj.designation);
-            return empObj.designation;
+            return empObj;
 
         }
 
