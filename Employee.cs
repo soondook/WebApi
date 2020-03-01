@@ -39,7 +39,7 @@ namespace WebApi
             Console.WriteLine(JSONresult);
             return JSONresult.ToString();
             */
-            string JSresult = JSONresult.ToString();
+            //string JSresult = JSONresult.ToString();
             return JSONresult.ToString();
         }
         
