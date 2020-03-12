@@ -126,7 +126,6 @@ namespace WebApi
                 //Console.WriteLine(result);
                 Console.WriteLine(result + "1");
                 //Console.WriteLine(obj2.ToString());
-
                 //Console.WriteLine(array.GetValue(6));
                 await Task.WhenAll(tasks).ConfigureAwait(true);
                 client.Dispose();
