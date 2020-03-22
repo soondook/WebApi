@@ -31,9 +31,10 @@ namespace WebApi.Controllers
         [HttpGet("{IpAddress}", Name = "Get")]
         public string Get(string IpAddress)
         {
-            var chk_res = SSH_NewConnection.NewConnection(IpAddress, 22);
+            string chk_res = DBSQLServerUtils.Connection(IpAddress);
+            var sftp_res = SSH_NewConnection.NewConnection(chk_res, 22);
             //var chk_res = SFTPConnection.Connection(IpAddress, 22);
-            return chk_res.ToString();
+            return sftp_res.ToString();
         }
 
         // POST: api/sFTP_conn

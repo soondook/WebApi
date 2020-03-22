@@ -4,19 +4,33 @@ using Renci.SshNet;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Sockets;
 using System.Threading.Tasks;
+
 
 namespace WebApi
 {
     class SSH_NewConnection
     {
 
-        //public static string Connection(string host, int port, string pass)
+        public static bool PingHost(string hostUri, int portNumber)
+        {
+            try
+            {
+                using var client = new TcpClient(hostUri, portNumber);
+                return true;
+            }
+            catch (SocketException)
+            {
+                Console.WriteLine("Error pinging host:'" + hostUri + ":" + portNumber.ToString() + "'");
+                return false;
+            }
+        }
         public static string NewConnection(string host, int port)
         {
             string localPath = @"C:\\temp";
             string user = "video";
-            var keyFile = new PrivateKeyFile(@"C:\\cygwin64\\home\\OpenSSH\\.ssh\\id_rsa_new");
+            var keyFile = new PrivateKeyFile(@"C:\\cygwin64\\home\\OpenSSH\\.ssh\\rsa_new");
             var keyFiles = new[] { keyFile };
             var IsConnect = false;
             //var sftPResult = "";
@@ -25,9 +39,11 @@ namespace WebApi
             PrivateKeyAuthenticationMethod method = new PrivateKeyAuthenticationMethod(user, keyFiles);
             ConnectionInfo con = new ConnectionInfo(host, port, user, method);
             //Set up the SSH connection
+            string expt;
+            var expt1 = "";
             using (SshClient client = new SshClient(con))
             {
-
+                
                 //Start the connection
                 try
                 {
@@ -39,6 +55,9 @@ namespace WebApi
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex);
+                    expt = ex.ToString();
+                    expt1 = expt.Split(":").GetValue(1).ToString();
+
                 }
                 if (client.IsConnected)
                 {
@@ -47,7 +66,7 @@ namespace WebApi
                     client.Dispose();
                 }
                 else {
-                    return "IsConnect :" + IsConnect + "\n";
+                    return "IsConnect :" + expt1.Split(".").GetValue(0) + "\n";
                 }
 
             }
@@ -76,7 +95,7 @@ namespace WebApi
                 {
                     
                     tasks.Add(DownloadFileAsync(file.FullName, localPath + "\\" + file.Name, client));
-                    Console.WriteLine(file.LastWriteTime);
+                    //Console.WriteLine(file.LastWriteTime);
                     //Console.WriteLine(file.FullName);
                     string[] input = { file.FullName };
                     //input2 = {{ file.FullName }, { file.Name } };
@@ -86,6 +105,7 @@ namespace WebApi
                     pointList2.Add(input2);
                     
                 }
+                /*
                 string[] array = pointList.ToArray();
                 for (i = 2; i < pointList.Count; i++)
                 {
@@ -107,6 +127,7 @@ namespace WebApi
                 //Console.WriteLine(a.Path + "result");
                 //object[,] str_ = { };
                 //Console.WriteLine(array2.GetValue(0).ToString());
+                */
                 i = 0;
                 foreach (object[,] str_ in pointList2)
                 {
