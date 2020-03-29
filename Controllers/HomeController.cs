@@ -67,7 +67,7 @@ namespace WebApi.Controllers
                 {
                     Console.WriteLine(ipAddr + " is a not valid IP address");
                     //sftp_res = ipAddr + " is a not valid IP address";
-                    return ipAddr.ToString();
+                    return ipAddr.ToString() + " is a not valid IP address!";
                 }
             } catch (Exception ex)
             {
