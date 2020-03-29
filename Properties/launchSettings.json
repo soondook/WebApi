@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "SFTP_conn",
+      //"launchUrl": "SFTP_conn",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "WebApi": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "SFTP_conn",
+      //"launchUrl": "SFTP_conn",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

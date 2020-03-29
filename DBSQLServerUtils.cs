@@ -62,8 +62,13 @@ namespace WebApi
             }
             Returndata.Dispose();
             conn.Dispose();
-            return ip.ToString();
-
+            if (ip.ToString().StartsWith("172")) { return ip.ToString(); }
+            //if (ip.ToString().StartsWith("10")) { return ip.ToString(); }
+            else
+            {
+                return "Not Found ATM IP";
+            }
+            //return ip.ToString();
         }
 
         public static DataTable DataTablesReturn(string query, NpgsqlConnection conn)
