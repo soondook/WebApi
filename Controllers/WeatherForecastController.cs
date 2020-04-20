@@ -49,6 +49,7 @@ namespace WebApi
             if (Modify.Encrypt != null)
                 //Encrypt.ToString();
                 encrypt = await Encript_data.Encript_(Modify.Encrypt);
+            /*
             string path = "C:\\Temp\\employee.json.txt";
             using (TextWriter tw1 = new StreamWriter(path, true))
             {
@@ -56,7 +57,7 @@ namespace WebApi
                 tw1.Close();
 
             }
-
+            */
             return new ObjectResult(encrypt);
         }
 

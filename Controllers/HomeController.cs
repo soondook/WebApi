@@ -27,13 +27,28 @@ namespace WebApi.Controllers
             return View();
         }
 
-       /* public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult Privacy()
         {
             return View();
         }
-        */
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+
         [HttpPost]
-        public string Area1(int altitude, int height)
+        public IActionResult Login(string login, string password)
+        {
+            string authData = $"Login: {login}   Password: {password}";
+            return Content(authData);
+        }
+
+        [HttpPost]
+        public string Privacy(int altitude, int height)
         {
             double square = altitude * height / 2;
             return $"Площадь треугольника с основанием {altitude} и высотой {height} равна {square}";

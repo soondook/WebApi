@@ -51,5 +51,13 @@ namespace WebApi
 
         }
 
+        public static object JSONDeserilaize2(object json)
+        {
+            Employee empObj = JsonConvert.DeserializeObject<Employee>(json.ToString());
+            //Console.WriteLine(empObj.designation);
+            return empObj;
+
+        }
+
     }
 }

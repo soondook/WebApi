@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using Npgsql;
 
 namespace WebApi
@@ -13,7 +14,7 @@ namespace WebApi
         public static string ValidateDefaultInstancePostgreSqlServer(string found)
         {
             string expt = "Close";
-             try
+            try
             {
                 using NpgsqlConnection postGresConnection = new NpgsqlConnection
                 {
@@ -52,7 +53,7 @@ namespace WebApi
             DataTable Returndata;
             Console.WriteLine("Connection for select was successful!" + "'" + $"{host}" + "'");
             string q = "SELECT ip FROM inventory where compassname =" + "'" + $"{host}" + "'";
-            string connection = "Server=localhost;Port=5432;Database=AtmBase;User Id=postgres;Password=g7712316;Pooling=true;MinPoolSize=1;MaxPoolSize=100;Command Timeout=600;Timeout=600;";
+            string connection = "Server=172.16.0.162;Port=5432;Database=AtmBase;User Id=postgres;Password=g7712316;Pooling=true;MinPoolSize=1;MaxPoolSize=100;Command Timeout=600;Timeout=600;";
             NpgsqlConnection conn = new NpgsqlConnection(connection);
             Returndata = DataTablesReturn(q, conn);
             for (int i = 0; i < Returndata.Rows.Count; i++)
@@ -67,6 +68,47 @@ namespace WebApi
             else
             {
                 return "Not Found ATM IP";
+            }
+            //return ip.ToString();
+        }
+
+        public static string Connection2(string host)
+        {
+            JObject obj2 = new JObject();
+            object ip = "";
+            object peer = "";
+            object compassname = null;
+            object peers = null;
+            //var input2 = "";
+            DataTable Returndata;
+            Console.WriteLine("Connection for select was successful!" + "'" + $"{host}" + "'");
+            string q = "SELECT ip, peer, compassname FROM inventory where compassname =" + "'" + $"{host}" + "'";
+            string connection = "Server=localhost;Port=5432;Database=AtmBase;User Id=postgres;Password=g7712316;Pooling=true;MinPoolSize=1;MaxPoolSize=100;Command Timeout=600;Timeout=600;";
+            NpgsqlConnection conn = new NpgsqlConnection(connection);
+            Returndata = DataTablesReturn(q, conn);
+            for (int i = 0; i < Returndata.Rows.Count; i++)
+            {
+                ip = Returndata.Rows[i].ItemArray[0];
+                peer = Returndata.Rows[i].ItemArray[1];
+                compassname = Returndata.Rows[i].ItemArray[2];
+                Console.WriteLine(peer);
+                obj2[$"{i}"] = $"{i}";
+                obj2[$"ip"] = $"{ip}";
+                obj2[$"peer"] = $"{peer}";
+                obj2[$"compassname"] = $"{compassname}";
+            }
+            Returndata.Dispose();
+            conn.Dispose();
+            if (ip != null) {
+                //object[,] input2 = { { ip.ToString(), peer.ToString() } };
+                //Console.WriteLine(obj2);
+                return obj2.ToString();
+              }
+            //if (ip.ToString().StartsWith("10")) { return ip.ToString(); }
+            else
+            {
+                //return "Not Found ATM IP";
+                return obj2.ToString();
             }
             //return ip.ToString();
         }
@@ -97,7 +139,7 @@ namespace WebApi
         {
             NpgsqlConnectionStringBuilder sConnB = new NpgsqlConnectionStringBuilder(connString);
             NpgsqlConnection conn = new NpgsqlConnection(sConnB.ConnectionString);
-            
+
             if (conn.State == ConnectionState.Closed)
             {
                 Console.WriteLine("Connection status Closed: " + conn.State);
@@ -110,7 +152,7 @@ namespace WebApi
                 catch (Exception ex) {
                     Console.WriteLine(ex);
                 }
-                
+
             }
             else
             {
@@ -125,7 +167,7 @@ namespace WebApi
                 //cmd.Parameters.AddWithValue("@ln", p_enc);
                 //cmd.Parameters.AddWithValue("@em", pass);
                 cmd.Parameters.AddWithValue("@rsa", Result_RSA);
-            try
+                try
                 {
                     rows = cmd.ExecuteNonQuery();
                     rows += rows;
@@ -140,4 +182,5 @@ namespace WebApi
         }
     }
 }
+
 

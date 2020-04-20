@@ -19,7 +19,7 @@ namespace WebApi
 
     [Route("[controller]")]
         
-    public class UserController : MyControllerBase1
+    public class UsersController : MyControllerBase1
     {
         [HttpPost("{Users}")]
         public async Task<ActionResult<User>> Post(User Modifys)
@@ -39,7 +39,7 @@ namespace WebApi
             MemoryStream stream = new MemoryStream(byteArray);
             byte[] buffer = stream.ToArray();
             Console.WriteLine(buffer.GetValue(0));
-            //Console.WriteLine(ms);
+            Console.WriteLine(ms);
             string ResultJson = "[" + ms + "]";
             JArray a = JArray.Parse(ResultJson);
             Console.WriteLine(a.Children());
