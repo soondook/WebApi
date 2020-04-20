@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading.Tasks;
 
 
@@ -28,11 +29,35 @@ namespace WebApi
         }
         public static string NewConnection(string host, int port)
         {
+
+            string keyIn = @"
+-----BEGIN RSA PRIVATE KEY-----
+MIICXAIBAAKBgQDOZYq8c1ZEb8APvjYcll0RJeumvAJe8F1PGn8BfIlGXe+8RljE
+jPwdCBR24SVDq93jZxNS89ycx8n/PXOd7nm6AOt712oE52hrC1PbvewlWN900sRu
+f5nB62iFr24fXB9elh4k8Pf77A8dojGum/l8UV6xTAgXpEuewnpJxw9VGQIDAQAB
+AoGAcupUYXJyIK57qAhGxontjWOone/l/ggkW6ur9R7qq5QXq6MbP2wj3uIlyr62
+acQiSb+VIcWHGn+edw829ULW4HlURadAxZyEIZGe8JoNKUJiSIIcaznX07hApqwL
+IB40JvV2mFQDORtVZpIvRlZ2xatcEpQhOZPLEGqVxf+ehQECQQD5tujX6y+3nkY+
+MMKNaeAfJ4engs4Io0jkXVUaFCy5HikKMVS/nQxHz1mHPfZmkyxURJcKbEQomJc4
+0x40P6K5AkEA05eBGqEu4b9d6zXX1IpNJHpQd9A8ITVICRjEEmx2HibBtETkJ9Ed
+251ENb1O6sdY5Azg0P/PfbcjpUB7kKWVYQJAWGUOEXi4YHhPhy49gE+NPZoBpCNi
+iZ47bFM5j8y6dCEgB/KkfFu8gCL/Hyeo9HB+janmCZN/oRs61KuvEnHASQJAe3sB
+Bu9lkqzBPJDRgeGsH0uaRjGpxZ94iIaBdlcBn5rylCdYFrx89jsTIWF2+qCXiY7S
+bGW9SxpjnP7CnalkQQJBAJjyLTAfC5EYySeQDKZhaneM1HNuY9GUtetGrrGVkYUA
+jnBRKgui3iAzjEsdDSVLwxVwPof7nOmgDroMi1V3vkU=
+-----END RSA PRIVATE KEY-----";
+
             string localPath = @"C:\\temp";
             string user = "video";
-            var keyFile = new PrivateKeyFile(@"C:\\cygwin64\\home\\OpenSSH\\.ssh\\rsa_new");
-            var keyFiles = new[] { keyFile };
+            //var keyFile = new PrivateKeyFile(@"C:\\cygwin64\\home\\OpenSSH\\.ssh\\rsa_new");
+            //var keyFiles = new[] { keyFile };
             var IsConnect = false;
+
+            MemoryStream keyFile = new MemoryStream(Encoding.UTF8.GetBytes(keyIn));
+            PrivateKeyFile keyFiles = new PrivateKeyFile(keyFile);
+            //var keyFiles = new PrivateKeyFile(keyFile, "{password}");
+
+
             //var sftPResult = "";
             Task<string> sftPResult;
             //PasswordAuthenticationMethod passwd = new PasswordAuthenticationMethod(user, pass),

@@ -83,7 +83,7 @@ namespace WebApi
             DataTable Returndata;
             Console.WriteLine("Connection for select was successful!" + "'" + $"{host}" + "'");
             string q = "SELECT ip, peer, compassname FROM inventory where compassname =" + "'" + $"{host}" + "'";
-            string connection = "Server=localhost;Port=5432;Database=AtmBase;User Id=postgres;Password=g7712316;Pooling=true;MinPoolSize=1;MaxPoolSize=100;Command Timeout=600;Timeout=600;";
+            string connection = "Server=172.16.0.162;Port=5432;Database=AtmBase;User Id=postgres;Password=g7712316;Pooling=true;MinPoolSize=1;MaxPoolSize=100;Command Timeout=600;Timeout=600;";
             NpgsqlConnection conn = new NpgsqlConnection(connection);
             Returndata = DataTablesReturn(q, conn);
             for (int i = 0; i < Returndata.Rows.Count; i++)
