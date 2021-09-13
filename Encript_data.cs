@@ -62,7 +62,6 @@ namespace WebApi
             // Convert bytes to base64 string.
             encryptedString = Convert.ToBase64String(encryptedBytes);
             Console.WriteLine(encryptedString);
-
             rsa.Dispose();
             return encryptedString.ToString();
         }
